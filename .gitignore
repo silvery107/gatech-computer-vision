@@ -131,3 +131,4 @@ dmypy.json
 # model pth
 *.pth
 *.pth.tar
+*.weights
