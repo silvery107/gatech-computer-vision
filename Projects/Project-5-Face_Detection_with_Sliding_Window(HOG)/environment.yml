@@ -1,0 +1,17 @@
+name: A4
+channels:
+- https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+- https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+- https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/menpo/
+dependencies:
+- jupyter
+- matplotlib
+- python=3.6
+- scikit-learn
+- scikit-image
+- scipy
+- numpy
+- cyvlfeat
+- pip
+- pip:
+  - opencv-python
