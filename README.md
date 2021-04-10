@@ -1,1 +1,1 @@
-# CS308_Computer_Vision_SUSTech
+# CS308_Computer_Vision
