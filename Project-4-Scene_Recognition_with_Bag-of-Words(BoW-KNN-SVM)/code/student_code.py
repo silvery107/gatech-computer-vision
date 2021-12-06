@@ -1,3 +1,5 @@
+from enum import auto
+from re import T
 import cv2
 import tqdm
 import pickle
@@ -45,7 +47,10 @@ def build_vocabulary(image_paths, vocab_size):
     feats = []
     for i in tqdm.trange(len(image_paths), desc='getting a vocab SIFT'):
         img = load_image_gray(image_paths[i]).astype(np.float32)
-        _, descriptors = vlfeat.sift.dsift(img, step=16, fast=True, float_descriptors=True)
+        _, descriptors = vlfeat.sift.dsift(img,
+                                           step=16,
+                                           fast=True,
+                                           float_descriptors=True)
         d_norm = np.linalg.norm(descriptors, axis=1)
         idx_nonzero = np.nonzero(d_norm)
         d_norm = d_norm[idx_nonzero]
@@ -137,7 +142,8 @@ def svm_classify(train_image_feats,
                  train_labels,
                  test_image_feats,
                  cross_val=False,
-                 good_one=False):
+                 tune=False,
+                 best=False):
     # categories
     categories = list(set(train_labels))
     # construct 1 vs all SVMs for each category
@@ -151,24 +157,24 @@ def svm_classify(train_image_feats,
     #############################################################################
     # TODO: YOUR CODE HERE                                                      #
     #############################################################################
-    if good_one == True:
-        svm = LinearSVC(loss='squared_hinge', random_state=0, tol=1e-5, C=1)
-        svm.fit(train_image_feats, train_labels)
-        test_labels = svm.predict(test_image_feats)
+    if best == True:
+        test_labels = best_setup_svm(train_image_feats, train_labels, test_image_feats)
     else:
         n_samples = len(train_labels)
         n_classes = len(categories)
         scores = np.zeros((n_samples, n_classes), dtype=DTYPE)
         for cat, i in zip(categories, range(n_classes)):
             count = 0
-            label_ovr = np.zeros((n_samples,))
+            label_ovr = np.zeros((n_samples, ))
             for label in train_labels:
                 if label == cat:
                     label_ovr[count] = 1
                 count += 1
             svms[cat].fit(train_image_feats, label_ovr)
             if cross_val == True:
-                cross_validation_svm(svms, cat, train_image_feats, label_ovr, cv=5)
+                cross_validation_svm(svms[cat], train_image_feats, label_ovr, 5)
+            if tune == True:
+                auto_tune_svm(svms[cat], train_image_feats, label_ovr, 5)
             scores[:, i] = svms[cat].decision_function(test_image_feats)
 
         for i in range(n_samples):
@@ -180,15 +186,25 @@ def svm_classify(train_image_feats,
 
     return test_labels
 
-def cross_validation_svm(svms, cat, train_image_feats, label_ovr, cv=5):
-    temp = cross_val_score(svms[cat], train_image_feats, label_ovr, cv=cv)
+
+def best_setup_svm(train_image_feats, train_labels, test_image_feats):
+    svm = LinearSVC(loss='squared_hinge', random_state=0, tol=1e-5, C=1)
+    svm.fit(train_image_feats, train_labels)
+    return svm.predict(test_image_feats)
+
+
+def cross_validation_svm(svm, train_image_feats, label_ovr, cv=5):
+    temp = cross_val_score(svm, train_image_feats, label_ovr, cv=cv)
     mean = temp.mean()
     print("Accuracy: %0.2f (+/- %0.2f)" % (temp.mean(), temp.std() * 2))
-    C = svms[cat].get_params()['C']
+
+
+def auto_tune_svm(svm, train_image_feats, label_ovr, cv):
+    C = svm.get_params()['C']
     while mean <= 0.90 and C > 1:
         C -= 0.1
-        svms[cat].set_params(C=C, loss='squared_hinge')
-        svms[cat].fit(train_image_feats, label_ovr)
-        temp = cross_val_score(svms[cat], train_image_feats, label_ovr, cv=cv)
+        svm.set_params(C=C, loss='squared_hinge')
+        svm.fit(train_image_feats, label_ovr)
+        temp = cross_val_score(svm, train_image_feats, label_ovr, cv=cv)
         mean = temp.mean()
         print("Accuracy: %0.2f (+/- %0.2f)" % (temp.mean(), temp.std() * 2))
