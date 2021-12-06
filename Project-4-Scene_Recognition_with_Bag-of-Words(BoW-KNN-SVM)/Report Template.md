@@ -83,6 +83,7 @@ Student ID: ***11811737***
 
     1. size = 10
      <img src="images/vocab_10.png" width=400>
+     
     1. size = 20
      <img src="images/vocab_20.png" width=400>
 
