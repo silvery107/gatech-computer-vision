@@ -10,7 +10,6 @@ from sklearn.model_selection import cross_val_score
 
 DTYPE = np.float32
 
-
 def get_tiny_images(image_paths):
     # dummy feats variable
     feats = []
@@ -46,7 +45,7 @@ def build_vocabulary(image_paths, vocab_size):
     for i in tqdm.trange(len(image_paths), desc='getting a vocab SIFT'):
         img = load_image_gray(image_paths[i]).astype(np.float32)
         _, descriptors = vlfeat.sift.dsift(img,
-                                           step=16,
+                                           step=8,
                                            fast=True,
                                            float_descriptors=True)
         d_norm = np.linalg.norm(descriptors, axis=1)
