@@ -132,3 +132,7 @@ dmypy.json
 *.pth
 *.pth.tar
 *.weights
+
+# custom
+.vscode/
+*.pkl
