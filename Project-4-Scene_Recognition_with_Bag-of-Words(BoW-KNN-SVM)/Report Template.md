@@ -110,12 +110,15 @@ Conclusion: TODO
 
     1. The cross validation code can be found in [Experimental Results Analysis](#experimental-results-analysis)
     1. The accuracy of tiny-image features plus nearest neighbor classifier:
-        <img src="images/tiny_nn.png", width=500>
+
+![tiny_nn](images/tiny_nn.png)
+
+<img src="images/tiny_nn.png", width=500>
         
     1. The accuracy of SIFT features plus nearest neighbor classifier:
         <img src="images/sift_nn.png", width=500>
 
-    1. The accuracy of SIFT features plus linear SVM classifier:
+    2. The accuracy of SIFT features plus linear SVM classifier:
         <img src="images/sift_svm.png", width=500>
 
 
