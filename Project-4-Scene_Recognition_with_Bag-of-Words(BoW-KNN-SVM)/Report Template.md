@@ -1,10 +1,10 @@
 # Computer Vision Assignment Report
 
-Title: Scene recognition with bag of words
+Title: ***Scene recognition with bag of words***
 
-Student Name: Mandan Chao
+Student Name: ***Mandan Chao***
 
-Student ID: 11811737
+Student ID: ***11811737***
 
 ### 1. Experimental Design
 
@@ -50,48 +50,56 @@ Student ID: 11811737
 
 ### 2. Experimental Results Analysis
 
-- Cross Validation
+- **Cross Validation**
 
-    My cross validation (CV) is done by `sklearn.model_selection.cross_val_score` function, with a five-fold setting. The CV result of Section 3b is `Accuracy: 0.88 (+/- 0.26)`.
+    My cross validation (CV) is done by `sklearn.model_selection.cross_val_score` function with a five-fold setting. The CV result of Section 3b is `Accuracy: 0.88 (+/- 0.26)`.
 
-- Learning Parameters Tuning
+- **Learning Parameters Tuning**
 
     According to the CV result, I desinged a function `auto_tune_svm` for autonomously tuning hyper-parameters of SVMs. Among tunable parameters of `sklearn.svm.LinearSVC`, I found the regularization parameter `C` mostly affect the performance of it. By definition, the strength of the regularization is inversely proportional to C. I decreased `C` iteratively to get a better CV results, and the final test accuracy is shown below.
 
-<img src="CV_tuned.png", width=500>
+    ```
+    Using SVM classifier to predict test set categories
+    Accuracy: 0.88 (+/- 0.26)
+    Accuracy: 0.87 (+/- 0.32)
+    Accuracy: 0.87 (+/- 0.32)
+    Accuracy: 0.88 (+/- 0.31)
+    ...
+    Accuracy: 0.89 (+/- 0.25)
+    Accuracy: 0.92 (+/- 0.03)
+    Accuracy: 0.92 (+/- 0.05)
+    Accuracy: 0.97 (+/- 0.02)
+    ...
+    Accuracy: 0.94 (+/- 0.08)
+    Accuracy: 0.93 (+/- 0.01)
+    Accuracy: 0.96 (+/- 0.04)
+    Accuracy: 0.96 (+/- 0.04)
+    ```
+     <img src="images/CV_tuned.png" width=450>
 
-
-- Vocabulary Size Analysis
+- **Vocabulary Size Analysis**
 
     The performance of SVMs with different vocabulary size are plotted as below.
 
     1. size = 10
-    
-<img src="images/vocab_10.png", width=500>
+     <img src="images/vocab_10.png" width=400>
+    1. size = 20
+     <img src="images/vocab_20.png" width=400>
 
-1. size = 20
-    
-<img src="images/vocab_20.png", width=500>
+    1. size = 50 
+     <img src="images/vocab_50.png" width=400>
 
-1. size = 50
+    1. size = 100
+     <img src="images/vocab_100.png" width=400>
 
-<img src="images/vocab_50.png", width=500>
+    1. size = 200
+     <img src="images/vocab_200.png" width=400>
 
-1. size = 100
+    1. size = 400
+     <img src="images/vocab_400.png" width=400>
 
-<img src="images/vocab_100.png", width=500>
-
-1. size = 200
-
-<img src="images/vocab_200.png", width=500>
-
-1. size = 400
-
-<img src="images/vocab_400.png", width=500>
-
-1. size = 1000
-
-<img src="images/vocab_1000.png", width=500>
+    1. size = 1000
+     <img src="images/vocab_1000.png" width=400>
 
 Conclusion: TODO
 
@@ -110,15 +118,10 @@ Conclusion: TODO
 
     1. The cross validation code can be found in [Experimental Results Analysis](#experimental-results-analysis)
     1. The accuracy of tiny-image features plus nearest neighbor classifier:
+     <img src=images/tiny_nn.png width=450>
 
-![tiny_nn](images/tiny_nn.png)
-
-<img src="images/tiny_nn.png", width=500>
-        
     1. The accuracy of SIFT features plus nearest neighbor classifier:
-        <img src="images/sift_nn.png", width=500>
+     <img src="images/sift_nn.png" width=450>
 
-    2. The accuracy of SIFT features plus linear SVM classifier:
-        <img src="images/sift_svm.png", width=500>
-
-
+    1. The accuracy of SIFT features plus linear SVM classifier:
+     <img src="images/sift_svm.png" width=450>
