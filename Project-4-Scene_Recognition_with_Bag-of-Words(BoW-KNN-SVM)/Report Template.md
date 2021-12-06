@@ -63,35 +63,35 @@ Student ID: 11811737
 
 - Vocabulary Size Analysis
 
-The performance of SVMs with different vocabulary size are plotted as below.
+    The performance of SVMs with different vocabulary size are plotted as below.
 
     1. size = 10
-
-    <img src="vocab_10.png", width=500>
     
-    1. size = 20
+<img src="images/vocab_10.png", width=500>
 
-    <img src="vocab_20.png", width=500>
+1. size = 20
+    
+<img src="images/vocab_20.png", width=500>
 
-    1. size = 50
+1. size = 50
 
-    <img src="vocab_50.png", width=500>
+<img src="images/vocab_50.png", width=500>
 
-    1. size = 100
+1. size = 100
 
-    <img src="vocab_100.png", width=500>
+<img src="images/vocab_100.png", width=500>
 
-    1. size = 200
+1. size = 200
 
-    <img src="vocab_200.png", width=500>
+<img src="images/vocab_200.png", width=500>
 
-    1. size = 400
+1. size = 400
 
-    <img src="vocab_400.png", width=500>
+<img src="images/vocab_400.png", width=500>
 
-    1. size = 1000
+1. size = 1000
 
-    <img src="vocab_1000.png", width=500>
+<img src="images/vocab_1000.png", width=500>
 
 Conclusion: TODO
 
