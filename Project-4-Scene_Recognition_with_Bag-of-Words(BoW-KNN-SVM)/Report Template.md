@@ -102,7 +102,7 @@ Student ID: ***11811737***
     1. size = 1000
      <img src="images/vocab_1000.png" width=400>
 
-Conclusion: TODO
+From these confusion matrices we can conclude that the larger the vocabulary size, the higher the classification accuracy. However, there is an upper bound for accuracy about 70% while increasing the vocabulary size. This is because features are non-linear while linear SVMs can only classify linear features, so there is an upper limit for the classification accuracy of linear SVMs.
 
 ### 3. Bonus Report (If you have done any bonus problem, state them here)
 
