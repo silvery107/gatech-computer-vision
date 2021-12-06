@@ -1,5 +1,3 @@
-from enum import auto
-from re import T
 import cv2
 import tqdm
 import pickle
